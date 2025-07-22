@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Методы массивов</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+	</style>
+	<h1>Методы массивов</h1>
+	<script type="text/javascript">
+const links = [
+    {
+        title: "Яндекс",
+        href: "https://yandex.ru",
+        clicks: 0
+    },
+    {
+        title: "ВКонтакте",
+        href: "https://vk.com",
+        clicks: 0
+    },
+    {
+        title: "IBM",
+        href: "https://ibm.com",
+        clicks: 0
+    },
+    {
+        title: "Дзен",
+        href: "https://dzen.ru/",
+        clicks: 0
+    },
+    {
+        title: "Налог.ру",
+        href: "https://nalog.gov.ru/",
+        clicks: 0
+    },
+    {
+        title: "Госуслуги",
+        href: "https://gosuslugi.ru",
+        clicks: 0
+    }
+];
+
+// 2. Заполняем свойства clicks случайными числами от 1 до 100
+links.forEach(link => {
+    link.clicks = Math.round(Math.random() * 99) + 1;
+});
+
+// 3. Фильтруем, сортируем и выводим ссылки с clicks >= 50
+const filteredLinks = links.filter(link => link.clicks >= 50);
+filteredLinks.sort((a, b) => b.clicks - a.clicks);
+
+document.write("<div>");
+filteredLinks.forEach(link => {
+    document.write(`<a href="${link.href}">${link.title} (${link.clicks})</a><br>`);
+});
+document.write("</div>");
+</script>
+</head>
+
+</html>
