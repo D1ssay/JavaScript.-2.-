@@ -1,0 +1,52 @@
+<html>
+<head>
+    <script type="text/javascript">
+        
+        function addToList(){
+            let newAdd = prompt('Добавить','')
+            if (newAdd) 
+            {
+                let li = document.createElement('li');
+                li.innerText =  newAdd;
+                let ul = document.getElementById("list");
+            
+            let lis = ul.getElementsByTagName('li');
+                if (lis.length == 0 || newAdd >= lis[lis.length-1].textContent)
+                    ul.appendChild(li);
+                else 
+                {
+                    for (let i=0; i < lis.length; i++)
+                        if ( lis[i].textContent >= newAdd) 
+                        {
+                            ul.insertBefore(li, lis[i]);
+                            break;
+                        }
+                } 
+            }  
+        }
+           function removeFromList() {
+            let li = document.querySelector("ul#list > li:last-of-type");
+            if (li && confirm(`Удалить пункт: "${li.textContent}"?`))
+                li.parentNode.removeChild(li);
+
+        }
+    </script>
+    </head>
+
+<body>
+    <h1>Создание элементов</h1>
+	<ul id=list>
+		<li>Живопись</li>
+		<li>Музыка</li>
+		<li>Скульптура</li>
+		
+	</ul>
+
+
+    <div>
+		<a href="javascript:addToList()">Добавить..</a>,
+        <a href="javascript:removeFromList()">Удалить..</a>
+
+	</div>
+    </body>
+</html>
