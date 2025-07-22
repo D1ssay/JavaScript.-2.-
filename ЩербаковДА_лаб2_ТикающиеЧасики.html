@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Тикающие часики</title>
+    <meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+       
+    </style>
+</head>
+<body>
+    <h1>Тикающие часики</h1>
+    
+    
+   
+   <h2><div id="clock"></div></h2> 
+    <h3><a href="javascript:startClock()">Запустить часики</a></h3>
+    <h5><a href="javascript:openClockWindow()">Запустить часики в окне</a></h5>		
+	<h4>	<a href="javascript:stopClock()">Остановить часики</a></h4>
+    
+	
+    <script>
+        let timerId, win, timerWin;
+
+        function openClockWindow(){
+            if (timerWin)  clearInterval(timerWin); 
+            updateWinClock();
+            timerWin = setInterval(updateWinClock, 1000);
+        }
+
+        function startClock() {
+            if (timerId) clearInterval(timerId);  
+            updateClock();
+            timerId = setInterval(updateClock, 1000);
+        }
+        
+        function stopClock() {
+            clearInterval(timerId);
+            clearInterval(timerWin);
+            document.getElementById('clock').innerHTML = "Часики остановлены";
+            win.document.getElementById('winclock').innerHTML = "Часики остановлены";
+        }
+        function updateWinClock()   {
+                win = open('',
+				"winclock",
+				"width=400,height=300,top=100,left=300,menubar=1,toolbar=1");
+                
+                        win.document.open()
+                        win.document.write('<h1 id="winclock">'+(new Date().toLocaleTimeString())+'</h1>');
+                        win.document.close();
+                    
+                
+            }
+
+        function updateClock() {
+            document.getElementById('clock').innerHTML = new Date().toLocaleTimeString();
+           
+        }
+        
+        
+        startClock();
+    </script>
+</body>
+</html>
