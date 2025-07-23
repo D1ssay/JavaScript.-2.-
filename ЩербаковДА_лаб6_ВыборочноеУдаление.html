@@ -1,0 +1,75 @@
+<html>
+<head>
+     <style>
+        .selectedItem {
+            color : red;
+        }
+    </style>
+    <script type="text/javascript">
+        
+        function addToList(){
+            let newAdd = prompt('Добавить','')
+            if (newAdd) 
+            {
+                let li = document.createElement('li');
+                li.innerText =  newAdd;
+                let ul = document.getElementById("list");
+            
+            let lis = ul.getElementsByTagName('li');
+                if (lis.length == 0 || newAdd >= lis[lis.length-1].textContent)
+                    ul.appendChild(li);
+                else 
+                {
+                    for (let i=0; i < lis.length; i++)
+                        if ( lis[i].textContent >= newAdd) 
+                        {
+                            ul.insertBefore(li, lis[i]);
+                            break;
+                        }
+                } 
+                li.addEventListener('click', clickOnItem);
+            }  
+        }
+           
+        function removeFromList() {
+            let li = document.querySelector("ul#list > li.selectedItem");
+            if (!li) {
+                alert("Необходимо выбрать пункт к удалению");
+                return;
+            }
+            if (confirm(`Удалить пункт: "${li.textContent}"?`)) {
+                li.parentNode.removeChild(li);
+            }
+        }
+       
+        function clickOnItem() {
+            let s = this.parentNode.querySelector('li.selectedItem');
+            if (s) s.classList.remove('selectedItem');
+            if (s != this) this.classList.add('selectedItem');
+        }
+
+        document.onreadystatechange = ()=>{
+            if (document.readyState === 'interactive') {
+                document.querySelectorAll("ul#list > li")
+                .forEach( li=>{
+                    li.addEventListener('click', clickOnItem)
+                });
+            }
+        }
+    </script>
+    </head>
+
+<body>
+    <h1>Создание элементов</h1>
+    <ul id=list>
+        <li>Живопись</li>
+        <li>Музыка</li>
+        <li>Скульптура</li>
+    </ul>
+
+    <div>
+        <a href="javascript:addToList()">Добавить..</a>,
+        <a href="javascript:removeFromList()">Удалить..</a>
+    </div>
+</body>
+</html>
