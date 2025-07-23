@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+
+<script type="text/javascript">
+function ulhide(){
+let uls = document.querySelectorAll('ul > li > ul');
+for (let i=0; i < uls.length; i++)
+uls[i].style.display = 'none';
+
+}
+function uldisplay()
+{
+    let uls = document.querySelectorAll('ul > li > ul');
+for (let i=0; i < uls.length; i++)
+uls[i].style.display = '';
+
+}
+
+document.addEventListener('readystatechange', ()=>{
+    if (document.readyState ==='interactive')
+    document.querySelectorAll('ul > li > h3')
+    .forEach( h => h.addEventListener( 'dblclick', function(e){
+            let u = this.parentNode.querySelector('ul');
+                    if (u) u.style.display = u.style.display == 'none'?'':'none';
+                }));
+});
+</script>
+</head>
+<body>
+    <ul>
+        <li>
+            <h3>Живопись</h3>
+            <ul>
+                <li>Рембрандт</li>
+                <li>Айвазовский</li>
+                <li>Шишкин</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Литература</h3>
+            <ul>
+                <li>Пушкин</li>
+                <li>Лермонтов</li>
+                <li>Гоголь</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Скульптура</h3>
+            <ul>
+                <li>Роден</li>
+                <li>Микеланджело</li>
+                <li>Церетели</li>
+            </ul>
+        </li>
+    </ul>
+     <div>
+        <a href="javascript:ulhide()">Свернуть</a>
+        <a href="javascript:uldisplay()">Развернуть</a>
+    </div>
+</body>
+</html>
