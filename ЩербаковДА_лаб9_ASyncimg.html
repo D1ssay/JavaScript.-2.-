@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script>
+        async function readTImgFile() {
+            var f = document.getElementById("textFile");
+            if (f.files.length != 0) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) { 
+                    var img = document.getElementById("result");
+                    img.src = this.result;
+                }
+               
+                reader.readAsDataURL(f.files[0]);
+            }
+        }
+    </script>
+    <style>
+        span {
+            background:yellow;
+        }
+        #result {
+            max-width: 100%;
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>File API</h1>
+    <input type="file" id="textFile" onchange="readTImgFile()" accept="image/*">
+    <img id="result">
+</body>
+</html>
