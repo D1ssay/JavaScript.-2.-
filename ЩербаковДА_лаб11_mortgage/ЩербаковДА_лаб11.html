@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head> 
+    <style type="text/css">
+          body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        form {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        .button-group {
+            margin-top: 15px;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+	</style>
+    <script type="module">
+  import { mortgage, overpayment } from './mortgage.js';
+
+  const calculateMortgage = () => {
+    const amount = parseInt(document.getElementById('S').value);
+    const rate = parseInt(document.getElementById('p').value);
+    const years = parseInt(document.getElementById('n').value);
+
+    const monthlyPayment = mortgage(amount, rate, years);
+    const totalOverpayment = overpayment(amount, rate, years);
+    
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = `
+      <div class="result-line">
+                <span>Ежемесячный платеж:</span>
+                <strong> ${monthlyPayment.toFixed(2)}</strong>
+            </div>
+            <div class="result-line">
+                <span>Общая переплата:</span>
+                <strong> ${totalOverpayment.toFixed(2)}</strong>
+            </div>
+    `;
+  };
+
+  window.addEventListener('load', () => {
+    document.getElementById('calc').addEventListener('click', calculateMortgage);
+  });
+</script>
+
+
+</head>
+<body>
+   
+   <form>
+        <label for="S">Сумма кредита:</label>
+        <input type="number" id="S" placeholder="Введите сумму в рублях">
+        
+        <label for="p">Процентная ставка:</label>
+        <input type="number" id="p" placeholder="Годовая ставка в %">
+        
+        <label for="n">Срок кредита:</label>
+        <input type="number" id="n" placeholder="Количество лет">
+        
+        <button type="button" id="calc">Рассчитать</button>
+    </form>
+
+    <div id="result"></div>
+    
+</body>
+</html>
