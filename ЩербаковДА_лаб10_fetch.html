@@ -37,7 +37,7 @@
 
         async function loadData() {
             try {
-                let response = await fetch(URL_ENDPOINT+'/1');
+                let response = await fetch(`${URL_ENDPOINT}/1`);
                 if (response.ok) {
                     currentUser = await response.json();
                     for(let p in currentUser) {
