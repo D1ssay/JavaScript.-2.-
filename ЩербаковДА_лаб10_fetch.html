@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>FetchAPI</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+          body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        form {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        .button-group {
+            margin-top: 15px;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+	</style>
+	<script type="text/javascript">
+        const URL_ENDPOINT = 'https://jsonplaceholder.typicode.com/users';
+        let currentUser = null;
+
+        async function loadData() {
+            try {
+                let response = await fetch(URL_ENDPOINT+'/1');
+                if (response.ok) {
+                    currentUser = await response.json();
+                    for(let p in currentUser) {
+                        let inp = document.getElementById(p);
+                        if (inp) inp.value = currentUser[p];
+                    }
+                }
+            }
+            catch(error) {
+                console.log(error);
+                alert('Невозможно загрузить профиль');
+            }
+        }
+
+        async function saveData() {
+            if (currentUser) {
+                let formInputs = document.querySelectorAll('#profileForm input')
+                
+                formInputs
+                    .forEach(inp=> { if (currentUser[inp.id]) currentUser[inp.id] = inp.value; });
+
+                let response = await fetch(`${URL_ENDPOINT}/1`, {
+                    method: 'PUT', 
+                    headers: {
+                         'Content-Type': 'application/json'
+                        },
+                    body : JSON.stringify(currentUser)
+                });
+
+                console.log(await response.json());
+
+
+            }
+
+        }
+
+        window.addEventListener('load', ()=>{
+            document.getElementById('loadBtn').addEventListener('click', loadData);
+            document.getElementById('saveBtn').addEventListener('click', saveData);
+        });
+
+	</script>
+</head>
+
+<body>
+	<h1>FetchAPI</h1>
+    <form id="profileForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" required>
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone">
+        
+        <div class="button-group">
+            <button type="button" id="loadBtn">Загрузить профиль</button>
+            <button type="button" id="saveBtn">Сохранить профиль</button>
+        </div>
+    </form>
+</body>
+</html>
