@@ -1,0 +1,16 @@
+{
+  "name": "lab13",
+  "version": "1.0.0",
+  "description": "",
+  "type" : "module",
+  "source" : "src/index.html",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
